@@ -1,0 +1,11 @@
+option java_package = "com.serialize.test.pojo";
+option java_outer_classname = "DxPackRecvProtoTest";
+message DxPackRecvProtoTest1 {
+    required string packId = 1;
+    required string packType = 2;
+    required string channelId = 3;
+    required string routeHist = 4;
+    required string packRecvStat = 5;
+    required string stateTime = 6;
+}
+//经过插件编译生成java bean进行序列化

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.serialize.test.dao.DxPackSendMapper">
+  <resultMap id="BaseResultMap" type="com.serialize.test.pojo.DxPackSend">
+    <id column="PACK_ID" jdbcType="VARCHAR" property="packId" />
+    <result column="PACK_TYPE" jdbcType="VARCHAR" property="packType" />
+    <result column="CHANNEL_ID" jdbcType="VARCHAR" property="channelId" />
+    <result column="ROUTE_HIST" jdbcType="VARCHAR" property="routeHist" />
+    <result column="PACK_SEND_STAT" jdbcType="VARCHAR" property="packSendStat" />
+    <result column="STATE_TIME" jdbcType="VARCHAR" property="stateTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    PACK_ID, PACK_TYPE, CHANNEL_ID, ROUTE_HIST, PACK_SEND_STAT, STATE_TIME
+  </sql>
+  <select id="selectByExample" parameterType="com.serialize.test.pojo.DxPackSendExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dx_pack_send
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause} limit 1000
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dx_pack_send
+    where PACK_ID = #{packId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from dx_pack_send
+    where PACK_ID = #{packId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.serialize.test.pojo.DxPackSendExample">
+    delete from dx_pack_send
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.serialize.test.pojo.DxPackSend">
+    insert into dx_pack_send (PACK_ID, PACK_TYPE, CHANNEL_ID, 
+      ROUTE_HIST, PACK_SEND_STAT, STATE_TIME
+      )
+    values (#{packId,jdbcType=VARCHAR}, #{packType,jdbcType=VARCHAR}, #{channelId,jdbcType=VARCHAR}, 
+      #{routeHist,jdbcType=VARCHAR}, #{packSendStat,jdbcType=VARCHAR}, #{stateTime,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.serialize.test.pojo.DxPackSend">
+    insert into dx_pack_send
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="packId != null">
+        PACK_ID,
+      </if>
+      <if test="packType != null">
+        PACK_TYPE,
+      </if>
+      <if test="channelId != null">
+        CHANNEL_ID,
+      </if>
+      <if test="routeHist != null">
+        ROUTE_HIST,
+      </if>
+      <if test="packSendStat != null">
+        PACK_SEND_STAT,
+      </if>
+      <if test="stateTime != null">
+        STATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="packId != null">
+        #{packId,jdbcType=VARCHAR},
+      </if>
+      <if test="packType != null">
+        #{packType,jdbcType=VARCHAR},
+      </if>
+      <if test="channelId != null">
+        #{channelId,jdbcType=VARCHAR},
+      </if>
+      <if test="routeHist != null">
+        #{routeHist,jdbcType=VARCHAR},
+      </if>
+      <if test="packSendStat != null">
+        #{packSendStat,jdbcType=VARCHAR},
+      </if>
+      <if test="stateTime != null">
+        #{stateTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.serialize.test.pojo.DxPackSendExample" resultType="java.lang.Long">
+    select count(*) from dx_pack_send
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update dx_pack_send
+    <set>
+      <if test="record.packId != null">
+        PACK_ID = #{record.packId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.packType != null">
+        PACK_TYPE = #{record.packType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.channelId != null">
+        CHANNEL_ID = #{record.channelId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.routeHist != null">
+        ROUTE_HIST = #{record.routeHist,jdbcType=VARCHAR},
+      </if>
+      <if test="record.packSendStat != null">
+        PACK_SEND_STAT = #{record.packSendStat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stateTime != null">
+        STATE_TIME = #{record.stateTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update dx_pack_send
+    set PACK_ID = #{record.packId,jdbcType=VARCHAR},
+      PACK_TYPE = #{record.packType,jdbcType=VARCHAR},
+      CHANNEL_ID = #{record.channelId,jdbcType=VARCHAR},
+      ROUTE_HIST = #{record.routeHist,jdbcType=VARCHAR},
+      PACK_SEND_STAT = #{record.packSendStat,jdbcType=VARCHAR},
+      STATE_TIME = #{record.stateTime,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.serialize.test.pojo.DxPackSend">
+    update dx_pack_send
+    <set>
+      <if test="packType != null">
+        PACK_TYPE = #{packType,jdbcType=VARCHAR},
+      </if>
+      <if test="channelId != null">
+        CHANNEL_ID = #{channelId,jdbcType=VARCHAR},
+      </if>
+      <if test="routeHist != null">
+        ROUTE_HIST = #{routeHist,jdbcType=VARCHAR},
+      </if>
+      <if test="packSendStat != null">
+        PACK_SEND_STAT = #{packSendStat,jdbcType=VARCHAR},
+      </if>
+      <if test="stateTime != null">
+        STATE_TIME = #{stateTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PACK_ID = #{packId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.serialize.test.pojo.DxPackSend">
+    update dx_pack_send
+    set PACK_TYPE = #{packType,jdbcType=VARCHAR},
+      CHANNEL_ID = #{channelId,jdbcType=VARCHAR},
+      ROUTE_HIST = #{routeHist,jdbcType=VARCHAR},
+      PACK_SEND_STAT = #{packSendStat,jdbcType=VARCHAR},
+      STATE_TIME = #{stateTime,jdbcType=VARCHAR}
+    where PACK_ID = #{packId,jdbcType=VARCHAR}
+  </update>
+</mapper>
